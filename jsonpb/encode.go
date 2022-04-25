@@ -83,6 +83,11 @@ func (jm *Marshaler) MarshalToString(m proto.Message) (string, error) {
 }
 
 func (jm *Marshaler) marshal(m proto.Message) ([]byte, error) {
+	jm.Indent = "	"
+	jm.EnumsAsInts = true
+	jm.EmitDefaults = true
+	jm.OrigName = true
+
 	v := reflect.ValueOf(m)
 	if m == nil || (v.Kind() == reflect.Ptr && v.IsNil()) {
 		return nil, errors.New("Marshal called with nil")
